@@ -13,42 +13,32 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Dialog
 //
 
-IDD_UVTEX DIALOG  0, 0, 217, 150
+IDD_UVTEX DIALOG 0, 0, 217, 150
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
-    CONTROL         "",IDC_UVCHANNEL_EDIT,"CustEdit",WS_GROUP | WS_TABSTOP,
-                    14,64,21,10
-    CONTROL         "U Coordinate",IDC_RCHANNEL_UVW,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,11,57,10
-    CONTROL         "VW Checker",IDC_RCHANNEL_CHECKER,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,21,57,10
+    CONTROL         "",IDC_UVCHANNEL_EDIT,"CustEdit",WS_GROUP | WS_TABSTOP,14,64,21,10
+    CONTROL         "U Coordinate",IDC_RCHANNEL_UVW,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,11,57,10
+    CONTROL         "VW Checker",IDC_RCHANNEL_CHECKER,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,21,57,10
     CONTROL         "",IDC_RCOUNT_EDIT,"CustEdit",WS_TABSTOP,123,21,21,10
-    CONTROL         "V Coordinate",IDC_GCHANNEL_UVW,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,61,57,10
-    CONTROL         "UW Checker",IDC_GCHANNEL_CHECKER,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,71,57,10
+    CONTROL         "V Coordinate",IDC_GCHANNEL_UVW,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,61,57,10
+    CONTROL         "UW Checker",IDC_GCHANNEL_CHECKER,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,71,57,10
     CONTROL         "",IDC_GCOUNT_EDIT,"CustEdit",WS_TABSTOP,123,70,21,10
-    CONTROL         "W Coordinate",IDC_BCHANNEL_UVW,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,111,59,10
-    CONTROL         "UV Checker",IDC_BCHANNEL_CHECKER,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,63,120,55,10
+    CONTROL         "W Coordinate",IDC_BCHANNEL_UVW,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,111,59,10
+    CONTROL         "UV Checker",IDC_BCHANNEL_CHECKER,"Button",BS_AUTORADIOBUTTON | WS_TABSTOP,63,120,55,10
     CONTROL         "",IDC_BCOUNT_EDIT,"CustEdit",WS_TABSTOP,123,120,21,10
-    CONTROL         "",IDC_TINTAMOUNT_EDIT,"CustEdit",WS_TABSTOP,173,55,21,
-                    10
+    CONTROL         "",IDC_TINTAMOUNT_EDIT,"CustEdit",WS_TABSTOP,173,55,21,10
     CONTROL         "",IDC_RCOUNT_SPIN,"SpinnerControl",0x0,145,21,7,10
     CONTROL         "",IDC_GCOUNT_SPIN,"SpinnerControl",0x0,145,70,7,10
     CONTROL         "",IDC_BCOUNT_SPIN,"SpinnerControl",0x0,145,120,7,10
@@ -72,25 +62,23 @@ BEGIN
     CONTROL         "",IDC_GAMOUNT_EDIT,"CustEdit",WS_TABSTOP,123,83,21,10
     CONTROL         "",IDC_GAMOUNT_SPIN,"SpinnerControl",0x0,145,83,7,10
     LTEXT           "Green Amount:",IDC_GAMOUNT_LABEL,63,83,48,8
-    CONTROL         "Clamp",IDC_CLAMPUVW,"Button",BS_AUTOCHECKBOX |
-                    WS_TABSTOP,13,90,32,8
+    CONTROL         "Clamp",IDC_CLAMPUVW,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,13,90,32,8
     CTEXT           "Vertex Color",IDC_CHANNEL_NAME,8,77,42,8
 END
 
-IDD_ABOUT_FOO DIALOGEX 0, 0, 218, 41
+IDD_ABOUT_FOO DIALOGEX 0, 0, 218, 68
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    GROUPBOX        "",IDC_STATIC,2,0,214,38
+    GROUPBOX        "",IDC_STATIC,2,0,214,42
     RTEXT           "0000.00.00",IDC_ABOUT_VERSION,171,26,37,8
-    PUSHBUTTON      "www.fooTOOLS.com",IDC_ABOUT_WEB,114,10,96,13,BS_CENTER |
-                    NOT WS_TABSTOP,WS_EX_STATICEDGE
-    LTEXT           "Version ...............",IDC_STATIC,115,26,57,8
-    CONTROL         103,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE |
-                    SS_SUNKEN,14,13,57,17
+    PUSHBUTTON      "www.fooTOOLS.com",IDC_ABOUT_WEB,114,13,96,13,BS_CENTER | BS_TOP | NOT WS_TABSTOP,WS_EX_STATICEDGE
+    LTEXT           "Version .............",IDC_STATIC,115,26,53,8
+    CONTROL         IDB_FOOTOOLS,IDC_STATIC,"Static",SS_BITMAP | SS_REALSIZEIMAGE | SS_SUNKEN,14,13,57,17
+    CTEXT           "3ds Max 2017+ Builds:\nJosef 'spacefrog' Wienerroither",IDC_STATIC,0,46,216,18
 END
 
-IDD_ABOUT_BFD DIALOG  0, 0, 218, 33
+IDD_ABOUT_BFD DIALOG 0, 0, 218, 33
 STYLE DS_SETFONT | WS_CHILD | WS_VISIBLE
 FONT 8, "MS Sans Serif"
 BEGIN
@@ -108,18 +96,18 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -144,7 +132,8 @@ BEGIN
     IDD_ABOUT_FOO, DIALOG
     BEGIN
         RIGHTMARGIN, 108
-        BOTTOMMARGIN, 16
+        BOTTOMMARGIN, 43
+        HORZGUIDE, 19
     END
 
     IDD_ABOUT_BFD, DIALOG
@@ -161,7 +150,25 @@ END
 // Bitmap
 //
 
-IDB_FOOTOOLS            BITMAP                  "fooTOOLS_green.bmp"
+IDB_FOOTOOLS            BITMAP                  "res/fooTOOLS_green.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_ABOUT_FOO AFX_DIALOG_LAYOUT
+BEGIN
+    0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 100, 100
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -202,10 +209,10 @@ END
 STRINGTABLE
 BEGIN
     IDS_CATEGORY_FOO        "fooTOOLS"
-    IDS_VERSION             "2007.02.20"
+    IDS_VERSION             "2025.02.01"
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

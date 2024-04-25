@@ -1,4 +1,4 @@
-LIBRARY UVWtoRGB.dlt
+LIBRARY
 EXPORTS
 	LibDescription			@1		PRIVATE
 	LibNumberClasses		@2		PRIVATE

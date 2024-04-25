@@ -24,6 +24,9 @@ extern HINSTANCE hInstance;
 
 #define UVTEX_CLASSID Class_ID(0x57583eeb, 0x6d523569)
 
+
+
+
 enum { uvtex_params };  // pblock ID
 
 enum {
@@ -55,6 +58,7 @@ class UVtex : public Texmap {
 	Color	tintColor;
 	BOOL	clampUVW;
 
+	Interval forever = FOREVER;
 	// Caches
 	Interval ivalid;
 	CRITICAL_SECTION csect;
@@ -68,7 +72,7 @@ class UVtex : public Texmap {
 		void Update(TimeValue t, Interval& valid);
 		void Init();
 		void Reset();
-		Interval Validity(TimeValue t) {Update(t,FOREVER); return ivalid;}
+		Interval Validity(TimeValue t) {Update(t,forever); return ivalid;}
 
 		// Evaluation
 		ULONG LocalRequirements(int subMtlNum);
@@ -95,12 +99,19 @@ class UVtex : public Texmap {
 
 		Class_ID ClassID() {return UVTEX_CLASSID;}
 		SClass_ID SuperClassID() {return TEXMAP_CLASS_ID;}
-		void GetClassName(TSTR& s) { s = GetString(IDS_UVTEX_CLASSNAME); }
+
 		void DeleteThis() {delete this;}
 
 		int NumSubs() {return 1;}
 		Animatable* SubAnim(int i) { return pblock; }
-		TSTR SubAnimName(int i) { return TSTR(GetString(IDS_UVTEX_PARAMS)); }
+
+#if MAX_RELEASE_R24
+		void GetClassName(TSTR& s, BOOL isLocalized) { s = GetString(IDS_UVTEX_CLASSNAME); }
+		TSTR SubAnimName(int subNum, BOOL isLocalized) { return TSTR(GetString(IDS_UVTEX_PARAMS)); }
+#else
+		void GetClassName(TSTR& s) { s = GetString(IDS_UVTEX_CLASSNAME); }
+		TSTR SubAnimName(int subNum) { return TSTR(GetString(IDS_UVTEX_PARAMS)); }
+#endif
 		int SubNumToRefNum(int subNum) { return subNum; }
 
  		int NumRefs() {return 1;}
@@ -108,13 +119,16 @@ class UVtex : public Texmap {
 		void SetReference(int i, RefTargetHandle rtarg) { pblock = (IParamBlock2*)rtarg; }
 
 #if (MAX_RELEASE >= 9000) //max 9
-		RefTargetHandle Clone(RemapDir &remap = DefaultRemapDir());
+		RefTargetHandle Clone(RemapDir &remap /*= DefaultRemapDir() */);
 #else //max 8 and earlier
 		RefTargetHandle Clone(RemapDir &remap = NoRemap());
 #endif
 
-		RefResult NotifyRefChanged( Interval changeInt, RefTargetHandle hTarget,
-		   PartID& partID, RefMessage message);
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+		RefResult NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message);
+#else
+		RefResult NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget, PartID& partID, RefMessage message, BOOL propagate);
+#endif
 
 		int	NumParamBlocks() { return 1; }
 		IParamBlock2* GetParamBlock(int i) { return pblock; }
@@ -126,6 +140,10 @@ class UVtexClassDesc:public ClassDesc2 {
 	int 			IsPublic() {return 1;}
 	void *			Create(BOOL loading) {return new UVtex;}
 	const TCHAR *	ClassName() { return GetString(IDS_UVTEX_CLASSNAME); }
+#if MAX_VERSION_MAJOR >= 24
+	const TCHAR* NonLocalizedClassName() { return ClassName(); }
+#endif
+
 	SClass_ID		SuperClassID() {return TEXMAP_CLASS_ID;}
 	Class_ID 		ClassID() {return UVTEX_CLASSID;}
 	const TCHAR* 	Category() {return TEXMAP_CAT_3D;}
@@ -179,6 +197,10 @@ BOOL UVtexDlgProc::DlgProc(TimeValue t,IParamMap2 *map,HWND hWnd,UINT msg,WPARAM
 		}
 	return FALSE;
 }
+
+#if MAX_VERSION_MAJOR >= 15
+#define end p_end
+#endif
 
 static ParamBlockDesc2 uvtexpb ( uvtex_params, _T("parameters"),  0, &uvTexCD, P_AUTO_CONSTRUCT + P_AUTO_UI, 0,
 	IDD_UVTEX, IDS_UVTEX_ROLLOUT, 0, 0, NULL,
@@ -533,11 +555,13 @@ RefTargetHandle UVtex::Clone(RemapDir &remap) {
 	return mnew;
 }
 
-RefResult UVtex::NotifyRefChanged(
-		Interval changeInt,
-		RefTargetHandle hTarget,
-		PartID& partID,
-		RefMessage message)
+#if MAX_VERSION_MAJOR < 17 //Max 2015
+RefResult UVtex::NotifyRefChanged(Interval changeInt, RefTargetHandle hTarget,
+	PartID& partID, RefMessage message)
+#else
+RefResult UVtex::NotifyRefChanged(const Interval& changeInt, RefTargetHandle hTarget,
+	PartID& partID, RefMessage message, BOOL propagate)
+#endif
 	{
 	switch (message) {
 		case REFMSG_CHANGE:
